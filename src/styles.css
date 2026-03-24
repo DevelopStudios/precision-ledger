@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Manrope:wght@700;800&family=JetBrains+Mono&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.flash-emerald { animation: flash-emerald-fade 2s forwards; }
+.flash-rose { animation: flash-rose-fade 2s forwards; }
+
+@keyframes flash-emerald-fade {
+    0% { background-color: rgba(78, 222, 163, 0.2); }
+    100% { background-color: transparent; }
+}
+@keyframes flash-rose-fade {
+    0% { background-color: rgba(255, 178, 183, 0.2); }
+    100% { background-color: transparent; }
+}

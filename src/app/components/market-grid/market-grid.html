@@ -1,0 +1,35 @@
+<div class="bg-surface-container rounded-2xl border border-outline-variant/30 overflow-hidden shadow-2xl flex flex-col h-[600px]">
+  <table class="w-full table-fixed bg-surface-container-lowest/80 backdrop-blur-md z-10 border-b border-outline-variant/10">
+    <thead class="text-[10px] font-bold uppercase tracking-widest text-slate-500">
+      <tr>
+        <th class="px-8 py-4 text-left w-[40%]">Asset</th>
+        <th class="px-8 py-4 text-right w-[30%]">Price</th>
+        <th class="px-8 py-4 text-right w-[30%]">Change</th>
+      </tr>
+    </thead>
+  </table>
+  <cdk-virtual-scroll-viewport itemSize="80" class="w-full flex-1">
+    <table class="w-full table-fixed">
+      <tbody>
+        <tr *cdkVirtualFor="let ticker of market.tickers(); trackBy: trackTicker" 
+            class="h-[80px] border-b border-outline-variant/10 hover:bg-slate-700/10 transition-colors">
+          <td class="px-8 py-4 font-bold text-on-surface w-[40%]">
+            <div class="flex items-center gap-3">
+              <img [src]="getLogo(ticker.s)" (error)="handleImageError($event, ticker.s)" class="w-8 h-8 rounded-full" loading="lazy">
+              {{ ticker.s }}
+            </div>
+          </td>
+          <td class="px-8 py-4 text-right font-mono w-[30%]" [ngClass]="ticker.up ? 'flash-emerald' : 'flash-rose'">
+            ${{ ticker.c }}
+          </td>
+          <td class="px-8 py-4 text-right w-[30%]">
+            <span [ngClass]="ticker.up ? 'bg-primary/10 text-primary' : 'bg-secondary/10 text-secondary'"
+                  class="text-[11px] font-bold px-3 py-1 rounded-lg">
+              {{ ticker.p }}%
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </cdk-virtual-scroll-viewport>
+</div>
