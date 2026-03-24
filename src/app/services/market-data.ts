@@ -26,9 +26,7 @@ export class MarketData {
   }
 
   constructor() {
-    // 1. Try Global. Added !bookTicker to get real-time updates (miniTicker is limited to 1000ms)
     const globalUrl = 'wss://stream.binance.com:443/stream?streams=!miniTicker@arr/!bookTicker';
-    // 2. Fallback to US if Global fails
     const usUrl = 'wss://stream.binance.us:9443/stream?streams=!miniTicker@arr/!bookTicker';
 
     const stream$ = webSocket<any>(globalUrl).pipe(
@@ -50,16 +48,13 @@ export class MarketData {
           
           let price = u.c;
           let percent = '0.00';
-
-          // !miniTicker payload has 'o' (open price), calculate percent change
           if (u.o) {
              price = u.c;
              percent = ((parseFloat(u.c) - parseFloat(u.o)) / parseFloat(u.o) * 100).toFixed(2);
           } 
-          // !bookTicker payload has 'a' (ask), use it as price for real-time updates
           else if (u.a) {
              price = u.a;
-             percent = prev?.p || '0.00'; // Preserve previous percentage
+             percent = prev?.p || '0.00';
           }
 
           if (!price) return;

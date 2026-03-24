@@ -25,8 +25,6 @@ export class MarketGrid {
 
   handleImageError(event: Event, symbol: string) {
     const img = event.target as HTMLImageElement;
-    // Fallback to a generated avatar if the icon is missing
-    // Uses Slate-700 hex color for background to match the theme
     img.src = `https://ui-avatars.com/api/?name=${symbol}&background=334155&color=fff&rounded=true&font-size=0.33&length=3`;
   }
 }
