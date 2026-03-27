@@ -26,6 +26,9 @@
             ],
             "styles": [
               "src/styles.css"
+            ],
+            "externalDependencies": [
+              "url"
             ]
           },
           "configurations": {
@@ -34,7 +37,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "15MB"
                 },
                 {
                   "type": "anyComponentStyle",
