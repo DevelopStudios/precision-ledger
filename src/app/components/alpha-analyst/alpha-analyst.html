@@ -1,0 +1,84 @@
+<div class="flex flex-col h-[850px] bg-surface-container shadow-2xl overflow-hidden relative border-l-2 border-primary/20">
+  
+  <header class="p-6 bg-surface-container-highest/30 backdrop-blur-md flex justify-between items-center">
+    <div>
+      <h3 class="text-xs font-headline font-extrabold tracking-tighter text-on-surface uppercase">
+        Alpha Analyst <span class="text-primary animate-pulse">●</span>
+      </h3>
+      <p class="text-[9px] text-slate-500 font-mono tracking-widest uppercase">LLM Synthesis Node</p>
+    </div>
+
+    @if (analyst.isModelLoading()) {
+      <div class="flex flex-col items-end gap-1">
+        <span class="text-[9px] font-mono text-tertiary">SYNCING_WEIGHTS: {{ analyst.loadProgress() }}%</span>
+        <div class="w-20 h-1 bg-surface-container-lowest rounded-full overflow-hidden">
+          <div class="h-full bg-tertiary transition-all duration-500" [style.width.%]="analyst.loadProgress()"></div>
+        </div>
+      </div>
+    }
+  </header>
+
+  <div #scrollContainer class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar bg-gradient-to-b from-transparent to-surface-container-lowest/20">
+   
+    @for (msg of analyst.chatHistory(); track $index) {
+      <div [ngClass]="msg.role === 'user' ? 'items-end' : 'items-start'" class="flex flex-col gap-2">
+        <span [ngClass]="{
+                'text-primary': msg.role === 'user',
+                'text-tertiary': msg.role === 'assistant' && msg.type === 'standard',
+                'text-green-500': msg.type === 'asset-change',
+                'text-red-500': msg.type === 'volatility-alert',
+                'text-blue-400': msg.type === 'insight'
+              }" 
+              class="text-[8px] font-mono font-bold uppercase tracking-[0.2em]">
+          {{ msg.role === 'user' ? '[ OPERATOR ]' : (msg.type === 'asset-change' ? '[ MONITOR ]' : (msg.type === 'volatility-alert' ? '[ ALERT ]' : (msg.type === 'insight' ? '[ SYNTHESIS ]' : '[ ANALYST ]'))) }}
+        </span>
+        
+        <div [ngClass]="{
+               'bg-primary/10 border-r-2 border-primary text-slate-200': msg.role === 'user',
+               'bg-tertiary/5 border-l-2 border-tertiary text-tertiary/90': msg.role === 'assistant' && msg.type === 'standard',
+               'bg-green-500/10 border-l-2 border-green-500 text-green-100': msg.type === 'asset-change',
+               'bg-red-500/10 border-l-2 border-red-500 text-red-100 font-bold animate-pulse': msg.type === 'volatility-alert',
+               'bg-blue-500/10 border-l-2 border-blue-400 text-blue-100 italic': msg.type === 'insight'
+             }"
+             class="max-w-[94%] p-4 rounded-lg text-[12px] leading-relaxed shadow-sm backdrop-blur-sm transition-all duration-300">
+          
+          <p [innerHTML]="formatDataPoints(msg.content)"></p>
+        </div>
+      </div>
+    }
+
+    @if (analyst.isGenerating()) {
+      <div class="flex items-center gap-2 px-2">
+        <div class="w-1 h-1 bg-primary rounded-full animate-bounce"></div>
+        <div class="w-1 h-1 bg-primary rounded-full animate-bounce [animation-delay:0.2s]"></div>
+        <div class="w-1 h-1 bg-primary rounded-full animate-bounce [animation-delay:0.4s]"></div>
+      </div>
+    }
+  </div>
+
+  <footer class="p-4 bg-surface-container-lowest/80 backdrop-blur-xl border-t border-outline-variant/10">
+    <div class="relative group">
+      <input #queryInput 
+             (input)="analyst.recordUserActivity()"
+             (keyup.enter)="sendQuery()"
+             type="text" 
+             placeholder="COMMAND >_ Ask about asset liquidity..."
+             class="w-full bg-surface-container-lowest p-4 pr-14 rounded-xl border border-outline-variant/10 
+                    focus:border-primary/40 focus:ring-1 focus:ring-primary/10 outline-none 
+                    transition-all font-mono text-[11px] text-on-surface placeholder:text-slate-700">
+      
+      <button (click)="sendQuery()" 
+              [disabled]="!analyst.isReady()"
+              class="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-primary hover:bg-primary/10 disabled:opacity-20 disabled:grayscale rounded-lg transition-all">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M13 5l7 7-7 7M5 12h14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="mt-3 flex justify-between items-center px-1">
+      <span class="text-[8px] font-mono text-slate-600 uppercase tracking-widest">WebGPU Accelerated</span>
+      <span class="text-[8px] font-mono text-slate-600 uppercase tracking-widest">Direct Injection Mode ⚡</span>
+    </div>
+  </footer>
+</div>

@@ -8,28 +8,34 @@
 
     <app-stats-bar></app-stats-bar>
 
-    <section class="bg-surface-container rounded-2xl overflow-hidden border border-outline-variant/30 shadow-2xl relative">
-      
-      <app-market-controls></app-market-controls>
+    <!-- Container for main content and Alpha Analyst sidebar -->
+    <div class="flex flex-col lg:flex-row gap-8">
+      <section class="bg-surface-container rounded-2xl overflow-hidden border border-outline-variant/30 shadow-2xl relative flex-1">
+        
+        <app-market-controls></app-market-controls>
 
-      <app-market-grid></app-market-grid>
+        <app-market-grid></app-market-grid>
 
-      <footer class="px-8 py-5 bg-surface-container-lowest flex justify-between items-center border-t border-outline-variant/20">
-        <div class="flex items-center gap-6 text-[10px] font-mono text-slate-500">
-          <span class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(78,222,163,0.5)]"></span> 
-            Buffer: 20 rows
-          </span>
-          <span class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-tertiary"></span> 
-            Total Virtual: 10,000 rows
-          </span>
-        </div>
-        <div class="text-[10px] font-bold uppercase tracking-widest text-primary flex items-center gap-2">
-          Direct DOM Injection Mode <span class="material-symbols-outlined text-sm">bolt</span>
-        </div>
-      </footer>
-    </section>
+        <footer class="px-8 py-5 bg-surface-container-lowest flex justify-between items-center border-t border-outline-variant/20">
+          <div class="flex items-center gap-6 text-[10px] font-mono text-slate-500">
+            <span class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(78,222,163,0.5)]"></span> 
+              Buffer: 20 rows
+            </span>
+            <span class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-tertiary"></span> 
+              Total Virtual: 10,000 rows
+            </span>
+          </div>
+          <div class="text-[10px] font-bold uppercase tracking-widest text-primary flex items-center gap-2">
+            Direct DOM Injection Mode <span class="material-symbols-outlined text-sm">bolt</span>
+          </div>
+        </footer>
+      </section>
+
+      <!-- Alpha Analyst component as a side card -->
+      <app-alpha-analyst class="w-full lg:w-96"></app-alpha-analyst>
+    </div>
 
     <div class="text-center text-slate-600 text-[10px] font-mono uppercase tracking-widest">
       Experimental UI v4.2.0 • Node: 204.1.88.1
