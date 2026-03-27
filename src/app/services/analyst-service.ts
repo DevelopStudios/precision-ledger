@@ -9,6 +9,14 @@ export interface ChatMessage {
   type?: 'standard' | 'asset-change' | 'volatility-alert' | 'insight';
 }
 
+export interface AnalystSignal {
+  id: string;
+  pair: string;
+  timestamp: string;
+  type: 'BULLISH' | 'BEARISH';
+  content: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -160,7 +168,7 @@ async askAnalyst(userQuery: string) {
     // 3. Create a placeholder for the assistant response
     this.chatHistory.update(h => [...h, { role: "assistant", content: "", type: 'standard' }]);
 
-  const chunks = await this.engin.chat.completions.create({
+  const chunks = await this.engin!.chat.completions.create({
     messages: messages as any,
     stream: true, // Enabling streaming for better UX
   });
