@@ -1,5 +1,5 @@
 <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-  <div class="bg-surface-container p-6 rounded-xl border border-outline-variant/30">
+  <div class="bg-surface-container p-6 rounded-2xl border border-outline-variant/30">
     <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-2">WebSocket Events/Sec</p>
     <div class="flex items-baseline gap-2">
       <span class="text-3xl font-mono font-bold text-primary tracking-tighter">{{ market.eventsPerSecond() | number:'1.0-0' }}</span>
@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div class="bg-surface-container p-6 rounded-xl border border-outline-variant/30">
+  <div class="bg-surface-container p-6 rounded-2xl border border-outline-variant/30">
     <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-2">Active Memory Heap</p>
     <div class="flex items-baseline gap-2">
       <span class="text-3xl font-mono font-bold text-tertiary tracking-tighter">{{ memory() | number:'1.1-1' }}</span>
@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <div class="bg-surface-container p-6 rounded-xl border border-outline-variant/30">
+  <div class="bg-surface-container p-6 rounded-2xl border border-outline-variant/30">
     <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-2">UI Frame Rate (FPS)</p>
     <div class="flex items-baseline gap-2">
       <span class="text-3xl font-mono font-bold text-secondary tracking-tighter">{{ fps() }}</span>

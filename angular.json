@@ -26,9 +26,6 @@
             ],
             "styles": [
               "src/styles.css"
-            ],
-            "externalDependencies": [
-              "url"
             ]
           },
           "configurations": {
